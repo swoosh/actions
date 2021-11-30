@@ -44,4 +44,4 @@ jobs:
 
       - name: Build and publish package
         if: ${{ inputs.mode }} == 'package'
-        run: mix hex.publish docs --yes
+        run: mix hex.publish --yes
