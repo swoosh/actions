@@ -39,9 +39,9 @@ jobs:
         run: mix do deps.get, deps.compile, compile
 
       - name: Build and publish docs
-        if: ${{ inputs.mode }} == 'docs'
+        if: inputs.mode == 'docs'
         run: mix hex.publish docs --yes
 
       - name: Build and publish package
-        if: ${{ inputs.mode }} == 'package'
+        if: inputs.mode == 'package'
         run: mix hex.publish --yes
