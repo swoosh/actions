@@ -44,7 +44,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache-elixir-deps.outputs.cache-hit != 'true'
-        run: mix do deps.get
+        run: mix deps.get
 
       - run: mix format --check-formatted
         if: matrix.lint
