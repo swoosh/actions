@@ -6,6 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-20.04
 
+    env:
+      MIX_ENV: test
+
     strategy:
       matrix:
         elixir: ['1.14', '1.13', '1.12', '1.11']
@@ -41,7 +44,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache-elixir-deps.outputs.cache-hit != 'true'
-        run: MIX_ENV=test mix do deps.get, deps.compile, compile
+        run: mix do deps.get
 
       - run: mix format --check-formatted
         if: matrix.lint
