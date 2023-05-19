@@ -19,8 +19,6 @@ jobs:
           - elixir: '1.12'
             otp: '25.x'
         include:
-          - elixir: '1.14'
-            otp: '26.x'
           - lint: lint
             elixir: '1.14'
             otp: '25.x'
