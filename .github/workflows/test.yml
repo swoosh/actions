@@ -16,6 +16,8 @@ jobs:
         exclude:
           - elixir: '1.12'
             otp: '25.x'
+          - elixir: '1.15'
+            otp: '23.x'
         include:
           - elixir: '1.14'
             otp: '26.x'
