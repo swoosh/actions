@@ -23,6 +23,21 @@ jobs:
             otp: '27.x'
             lint: lint
 
+    services:
+      mailpit:
+        image: axllent/mailpit:latest
+        ports:
+          - 1025:1025
+          - 8025:8025
+        env:
+          MP_SMTP_AUTH_ACCEPT_ANY: 1
+          MP_SMTP_AUTH_ALLOW_INSECURE: 1
+          options: >-
+            --health-cmd nc -zw3 localhost 1025
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+
     steps:
       - uses: actions/checkout@v4
 
