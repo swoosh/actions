@@ -1,0 +1,52 @@
+name: Retire
+
+on: 
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+      reason:
+        required: true
+        type: string
+      message:
+        required: true
+        type: string
+        
+    secrets:
+      HEX_API_KEY:
+        required: true
+
+jobs:
+  publish:
+    env:
+      MIX_ENV: docs
+      HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup BEAM
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: '1.18'
+          otp-version: 27.x
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        id: cache-elixir-deps
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+
+      - name: Install Dependencies
+        if: steps.cache-elixir-deps.outputs.cache-hit != 'true'
+        run: mix do deps.get, deps.compile, compile
+
+      - name: Retire the package version
+        run: mix hex.retire ${{ inputs.package }} ${{ inputs.version }} ${{ inputs.reason }} --message "${{ inputs.message }}"
