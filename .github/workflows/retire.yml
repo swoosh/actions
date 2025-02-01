@@ -21,7 +21,7 @@ on:
         required: true
 
 jobs:
-  publish:
+  retire:
     env:
       MIX_ENV: docs
       HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
