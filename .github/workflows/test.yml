@@ -16,6 +16,8 @@ jobs:
         include:
           - elixir: '1.19'
             otp: '28.x'
+          - elixir: '1.20'
+            otp: '29.x'
             lint: lint
 
     steps:
